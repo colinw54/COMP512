@@ -14,11 +14,8 @@ import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 
-// ANY OTHER classes, etc., that you add must be private to this package and not visible to the application layer.
 
-// extend / implement whatever interface, etc. as required.
-// NO OTHER public members / methods allowed. broadcastTOMsg, acceptTOMsg, and shutdownPaxos must be the only visible methods to the application layer.
-//	You should also not change the signature of these methods (arguments and return value) other aspects maybe changed with reasonable design needs.
+
 public class Paxos
 {
 	GCL gcl;
@@ -30,15 +27,16 @@ public class Paxos
 
 	Proposer proposer;
 
+	public String log;
 	int promises;
 	int refuses;
 	int acceptacks;
 	int denies;
-
-
+	FileWriter writer;
 
 	public Paxos(String myProcess, String[] allGroupProcesses, Logger logger, FailCheck failCheck) throws IOException, UnknownHostException
 	{
+
 		// Rember to call the failCheck.checkFailure(..) with appropriate arguments throughout your Paxos code to force fail points if necessary.
 		this.failCheck = failCheck;
 
@@ -48,6 +46,9 @@ public class Paxos
 		this.incoming = new ConcurrentLinkedQueue<>();
 		this.port = Integer.parseInt(myProcess.split(":")[1]);
 		this.majority = (allGroupProcesses.length /2) + 1;
+		
+		this.proposer = new Proposer(this.port, this.majority);
+		proposer.start();
 	}
 
 	// This is what the application layer is going to call to send a message/value, such as the player and the move
@@ -59,7 +60,10 @@ public class Paxos
 		acceptacks = 0;
 		denies = 0;
 
+	
+		this.log += "Broadcasting\n";
 
+		outgoing.offer(val);
 		// This is just a place holder.
 		// Extend this to build whatever Paxos logic you need to make sure the messaging system is total order.
 		// Here you will have to ensure that the CALL BLOCKS, and is returned ONLY when a majority (and immediately upon majority) of processes have accepted the value.
@@ -72,7 +76,6 @@ public class Paxos
 		* 	3. An Acceptor thread will continuously read paxosmessages, and place any confirmed messages into a thread-safe queue
 		* 	**Each Process can only have one Proposer/Acceptor Thread running concurrently**
 		*/		
-
 	}
 
 	// This is what the application layer is calling to figure out what is the next message in the total order.
@@ -205,11 +208,11 @@ public class Paxos
 		public void run(){
 			//While running, will constantly try to pull a message out of "outgoing", and if successful, initiates an instance of PAXOS
 			while (true){
-				GCMessage msg = outgoing.poll();
-
+				Object msg = outgoing.poll();
+				System.out.println(log);
 				if (msg != null) {
                     //Begin an instance of Paxos
-
+					log += "Proposer added\n";
                 } else {
                     // No message available, pause for a short time
                     try {
@@ -220,10 +223,16 @@ public class Paxos
                     }
 
 			}
+			}
 
 
-
-		}
+		/*
+		 * Proposer Methods: 
+		 * Propose()
+		 * Accept()
+		 * PromiseRecieved()
+		 * AcceptAckRecieved()
+		 */
 	}
 
 
@@ -374,7 +383,7 @@ public class Paxos
 						acceptacks += 1;
 
 						// If we have majority of acceptacks, we can confirm the value
-						if (acceptacks >= majority){
+						if (acceptacks >= majority){ 
 
 							// Check for failures after receiving an ACCEPTACK messages and becoming leader
 							failCheck.checkFailure(FailCheck.FailureType.AFTERBECOMINGLEADER);
@@ -431,8 +440,16 @@ public class Paxos
 						break;
 				}
 			}
-
 		}
+
+
+		/*
+		 * Acceptor Methods: 
+		 * Promise()
+		 * AcceptAcknowledgement()
+		 * Reset()
+		 * Confirm()
+		 */
 	}
 }
 }
