@@ -1,0 +1,82 @@
+Nov 02, 2024 10:19:22.614433109 AM comp512st.tiapp.TreasureIslandApp main INFO: Started with arguments : [tr-open-10.cs.mcgill.ca:40120, tr-open-10.cs.mcgill.ca:40120,tr-open-11.cs.mcgill.ca:40220, game-20-99, 2, 1]
+Nov 02, 2024 10:19:22.623007226 AM comp512.utils.FailCheck <init> INFO: Initializing failure check emulation setup....
+Nov 02, 2024 10:19:22.642467367 AM comp512.gcl.GCL <init> INFO: Host tr-open-10.cs.mcgill.ca/10.69.38.160:40120
+Nov 02, 2024 10:19:22.642952147 AM comp512.gcl.GCL <init> INFO: Initializing outbox despatcher threads.
+Nov 02, 2024 10:19:22.644522849 AM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: tr-open-10.cs.mcgill.ca:40120: Starting outbox despatch thread for process.
+Nov 02, 2024 10:19:22.644527293 AM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: tr-open-11.cs.mcgill.ca:40220: Starting outbox despatch thread for process.
+Nov 02, 2024 10:19:22.650739451 AM comp512.ti.TreasureIsland <init> INFO: Treasure Island initialized.
+Nov 02, 2024 10:19:25.700968013 AM comp512st.tiapp.TreasureIslandApp main FINE: cmd is : R
+Nov 02, 2024 10:19:25.701811641 AM comp512.gcl.GCL broadcastMsg FINE: Broadcast message request received. Translating to point-to-point messages : [Ljava.lang.Object;@306a30c7
+Nov 02, 2024 10:19:25.702419908 AM comp512.gcl.GCL sendMsg FINE: Request received to send message to tr-open-10.cs.mcgill.ca:40120. [Ljava.lang.Object;@306a30c7
+Nov 02, 2024 10:19:25.704913900 AM comp512.gcl.GCL sendMsg FINE: Request received to send message to tr-open-11.cs.mcgill.ca:40220. [Ljava.lang.Object;@306a30c7
+Nov 02, 2024 10:19:25.707122455 AM comp512.gcl.GCL$InboxListener run INFO: Network connection request from  /10.69.38.160
+Nov 02, 2024 10:19:25.714463991 AM comp512.gcl.GCL$GCLOutBoxDespatcher openConnection SEVERE: tr-open-11.cs.mcgill.ca:40220: Encountered IOException while trying to establish.  Inet: tr-open-11.cs.mcgill.ca/10.69.38.161 port: 40220 : java.net.ConnectException: Connection refused
+java.net.ConnectException: Connection refused
+	at java.base/sun.nio.ch.Net.connect0(Native Method)
+	at java.base/sun.nio.ch.Net.connect(Net.java:589)
+	at java.base/sun.nio.ch.Net.connect(Net.java:578)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:583)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:751)
+	at java.base/java.net.Socket.connect(Socket.java:686)
+	at java.base/java.net.Socket.<init>(Socket.java:555)
+	at java.base/java.net.Socket.<init>(Socket.java:356)
+	at comp512.gcl.GCL$GCLOutBoxDespatcher.openConnection(GCL.java:71)
+	at comp512.gcl.GCL$GCLOutBoxDespatcher.run(GCL.java:112)
+
+Nov 02, 2024 10:19:25.717644493 AM comp512.gcl.GCL$GCLOutBoxDespatcher run FINE: tr-open-10.cs.mcgill.ca:40120: Sending message to. message: [senderProcess:tr-open-10.cs.mcgill.ca:40120:val:[Ljava.lang.Object;@306a30c7]
+Nov 02, 2024 10:19:25.717813601 AM comp512.gcl.GCL$InboxListener run INFO: tr-open-10.cs.mcgill.ca:40120: Input stream set up for this process to receive incoming messages. Inet: /10.69.38.160
+Nov 02, 2024 10:19:25.719283316 AM comp512.gcl.GCL$GCLInbox run INFO: tr-open-10.cs.mcgill.ca:40120: Starting an inBox thread to receive messages from this process.
+Nov 02, 2024 10:19:25.720972663 AM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: tr-open-11.cs.mcgill.ca:40220: Will try connecting to  after 100 milliseconds.
+Nov 02, 2024 10:19:25.743405663 AM comp512.gcl.GCL$GCLInbox run FINE: tr-open-10.cs.mcgill.ca:40120: Received a message from. message: [senderProcess:tr-open-10.cs.mcgill.ca:40120:val:[Ljava.lang.Object;@7f458f79]
+Nov 02, 2024 10:19:25.743972520 AM comp512.gcl.GCL readGCMessage INFO: Delivering message : [senderProcess:tr-open-10.cs.mcgill.ca:40120:val:[Ljava.lang.Object;@7f458f79]
+Nov 02, 2024 10:19:25.744660093 AM comp512st.tiapp.TreasureIslandApp run FINE: Received :[1, R]
+Nov 02, 2024 10:19:25.745692691 AM comp512.ti.TreasureIsland move INFO: Move request: player number 1 direction R
+Nov 02, 2024 10:19:25.822389277 AM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: tr-open-11.cs.mcgill.ca:40220: Will try connecting to  after 200 milliseconds.
+Nov 02, 2024 10:19:26.024649419 AM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: tr-open-11.cs.mcgill.ca:40220: Will try connecting to  after 400 milliseconds.
+Nov 02, 2024 10:19:26.427171002 AM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: tr-open-11.cs.mcgill.ca:40220: Will try connecting to  after 800 milliseconds.
+Nov 02, 2024 10:19:27.085120785 AM comp512st.tiapp.TreasureIslandApp main FINE: cmd is : R
+Nov 02, 2024 10:19:27.085868595 AM comp512.gcl.GCL broadcastMsg FINE: Broadcast message request received. Translating to point-to-point messages : [Ljava.lang.Object;@46f7f36a
+Nov 02, 2024 10:19:27.086589772 AM comp512.gcl.GCL sendMsg FINE: Request received to send message to tr-open-10.cs.mcgill.ca:40120. [Ljava.lang.Object;@46f7f36a
+Nov 02, 2024 10:19:27.087268074 AM comp512.gcl.GCL sendMsg FINE: Request received to send message to tr-open-11.cs.mcgill.ca:40220. [Ljava.lang.Object;@46f7f36a
+Nov 02, 2024 10:19:27.087324477 AM comp512.gcl.GCL$GCLOutBoxDespatcher run FINE: tr-open-10.cs.mcgill.ca:40120: Sending message to. message: [senderProcess:tr-open-10.cs.mcgill.ca:40120:val:[Ljava.lang.Object;@46f7f36a]
+Nov 02, 2024 10:19:27.089303775 AM comp512.gcl.GCL$GCLInbox run FINE: tr-open-10.cs.mcgill.ca:40120: Received a message from. message: [senderProcess:tr-open-10.cs.mcgill.ca:40120:val:[Ljava.lang.Object;@34d893e1]
+Nov 02, 2024 10:19:27.090809798 AM comp512.gcl.GCL readGCMessage INFO: Delivering message : [senderProcess:tr-open-10.cs.mcgill.ca:40120:val:[Ljava.lang.Object;@34d893e1]
+Nov 02, 2024 10:19:27.091138135 AM comp512st.tiapp.TreasureIslandApp run FINE: Received :[1, R]
+Nov 02, 2024 10:19:27.091403129 AM comp512.ti.TreasureIsland move INFO: Move request: player number 1 direction R
+Nov 02, 2024 10:19:27.229456877 AM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: tr-open-11.cs.mcgill.ca:40220: Will try connecting to  after 1000 milliseconds.
+Nov 02, 2024 10:19:28.231831273 AM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: tr-open-11.cs.mcgill.ca:40220: Will try connecting to  after 1000 milliseconds.
+Nov 02, 2024 10:19:28.818180420 AM comp512st.tiapp.TreasureIslandApp main FINE: cmd is : R
+Nov 02, 2024 10:19:28.819293844 AM comp512.gcl.GCL broadcastMsg FINE: Broadcast message request received. Translating to point-to-point messages : [Ljava.lang.Object;@421faab1
+Nov 02, 2024 10:19:28.821446852 AM comp512.gcl.GCL sendMsg FINE: Request received to send message to tr-open-10.cs.mcgill.ca:40120. [Ljava.lang.Object;@421faab1
+Nov 02, 2024 10:19:28.822274434 AM comp512.gcl.GCL sendMsg FINE: Request received to send message to tr-open-11.cs.mcgill.ca:40220. [Ljava.lang.Object;@421faab1
+Nov 02, 2024 10:19:28.822361413 AM comp512.gcl.GCL$GCLOutBoxDespatcher run FINE: tr-open-10.cs.mcgill.ca:40120: Sending message to. message: [senderProcess:tr-open-10.cs.mcgill.ca:40120:val:[Ljava.lang.Object;@421faab1]
+Nov 02, 2024 10:19:28.825178643 AM comp512.gcl.GCL$GCLInbox run FINE: tr-open-10.cs.mcgill.ca:40120: Received a message from. message: [senderProcess:tr-open-10.cs.mcgill.ca:40120:val:[Ljava.lang.Object;@4ef052ad]
+Nov 02, 2024 10:19:28.825861386 AM comp512.gcl.GCL readGCMessage INFO: Delivering message : [senderProcess:tr-open-10.cs.mcgill.ca:40120:val:[Ljava.lang.Object;@4ef052ad]
+Nov 02, 2024 10:19:28.827313864 AM comp512st.tiapp.TreasureIslandApp run FINE: Received :[1, R]
+Nov 02, 2024 10:19:28.828991748 AM comp512.ti.TreasureIsland move INFO: Move request: player number 1 direction R
+Nov 02, 2024 10:19:29.233099552 AM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: tr-open-11.cs.mcgill.ca:40220: Will try connecting to  after 1000 milliseconds.
+Nov 02, 2024 10:19:29.991173690 AM comp512st.tiapp.TreasureIslandApp main FINE: cmd is : E
+Nov 02, 2024 10:19:29.991931799 AM comp512st.tiapp.TreasureIslandApp main INFO: Shutting down Paxos
+Nov 02, 2024 10:19:30.235269500 AM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: tr-open-11.cs.mcgill.ca:40220: Will try connecting to  after 1000 milliseconds.
+Nov 02, 2024 10:19:30.994851937 AM comp512.gcl.GCL shutdownGCL INFO: GCL Shutdown request received.
+Nov 02, 2024 10:19:30.995224638 AM comp512.gcl.GCL$InboxListener shutdown INFO: Received request to shutdown GCL Inbox listener thread.
+Nov 02, 2024 10:19:30.997926346 AM comp512.gcl.GCL$InboxListener run INFO: GCL Inbox listener is now shutdown. We will not be accepting new incoming connections anymore.
+Nov 02, 2024 10:19:30.998343172 AM comp512.gcl.GCL shutdownGCL INFO: Inbox listener thread is now shutdown.
+Nov 02, 2024 10:19:30.998561593 AM comp512.gcl.GCL shutdownGCL INFO: Initiating broadcast of CLOSE message to all my outbound connections.
+Nov 02, 2024 10:19:30.998874847 AM comp512.gcl.GCL$GCLOutBoxDespatcher run FINE: tr-open-10.cs.mcgill.ca:40120: Sending message to. message: [senderProcess:CLOSE:val:null]
+Nov 02, 2024 10:19:30.999007861 AM comp512.gcl.GCL$GCLOutBoxDespatcher shutdown INFO: tr-open-11.cs.mcgill.ca:40220: Request initiated to shutdown the message despatcher thread for this process. The thread is currently alive.
+Nov 02, 2024 10:19:30.999444314 AM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: tr-open-10.cs.mcgill.ca:40120: Detected CLOSE marker in the outgoing message. I am shutting down after this.
+Nov 02, 2024 10:19:30.999507093 AM comp512.gcl.GCL$GCLInbox run FINE: tr-open-10.cs.mcgill.ca:40120: Received a message from. message: [senderProcess:CLOSE:val:null]
+Nov 02, 2024 10:19:31.001593785 AM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: tr-open-10.cs.mcgill.ca:40120: Message despatch thread to the process is now shutdown. No more messages will be sent to that process.
+Nov 02, 2024 10:19:31.002186305 AM comp512.gcl.GCL$GCLInbox run INFO: tr-open-10.cs.mcgill.ca:40120: Is closing connection. I will not get anymore messages from them.
+Nov 02, 2024 10:19:31.002783631 AM comp512.gcl.GCL$GCLInbox run INFO: tr-open-10.cs.mcgill.ca:40120: Closed incoming connection from this process. The inBox thread is shutdown.
+Nov 02, 2024 10:19:31.199723285 AM comp512.gcl.GCL$GCLOutBoxDespatcher shutdown INFO: tr-open-10.cs.mcgill.ca:40120: Request initiated to shutdown the message despatcher thread for this process. The thread is currently not alive.
+Nov 02, 2024 10:19:31.199750994 AM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: tr-open-11.cs.mcgill.ca:40220: Message despatch thread to the process is now shutdown. No more messages will be sent to that process.
+Nov 02, 2024 10:19:31.202542953 AM comp512.gcl.GCL shutdownGCL INFO: tr-open-11.cs.mcgill.ca:40220: GCL outbox despatcher thread for this process is now shutdown.
+Nov 02, 2024 10:19:31.202704140 AM comp512.gcl.GCL shutdownGCL INFO: tr-open-10.cs.mcgill.ca:40120: GCL outbox despatcher thread for this process is now shutdown.
+Nov 02, 2024 10:19:31.203003111 AM comp512.gcl.GCL$GCLInbox shutdown INFO: tr-open-10.cs.mcgill.ca:40120: Requesting shutdown for GCL message inbox thread from this process. This thread is currently not alive.
+Nov 02, 2024 10:19:31.203211017 AM comp512.gcl.GCL$GCLInbox shutdown INFO: tr-open-10.cs.mcgill.ca:40120: This thread has already terminated.
+Nov 02, 2024 10:19:31.203384519 AM comp512.gcl.GCL shutdownGCL INFO: tr-open-10.cs.mcgill.ca:40120: GCL inbox thread for this proess is now shutdown.
+Nov 02, 2024 10:19:31.203611573 AM comp512.gcl.GCL readGCMessage INFO: GCL is being shutdown. No more messages will be delivered. Reader will be interrupted.
+Nov 02, 2024 10:19:31.204688836 AM comp512st.tiapp.TreasureIslandApp main INFO: Process terminated.

@@ -212,10 +212,64 @@ public class Paxos
 				if (msg != null) {
                     //Begin an instance of Paxos
 					//Proposer should be blocking, meaning it can't send another proposal if it's in the middle of one
-					log += "Proposer added\n";
+				
+					//Create initial Proposal
+					propose();
 
+					//Wait for promises (Either until majority refuses/accepts or cancel after certain period of time)
+					while (promises < majority && denies < majority){
+				
+						try {
+							msg = gcl.readGCMessage();
+						} catch (InterruptedException e){ // Catch an InterruptedException per the documentation in the doc
+							e.printStackTrace();
+						}
 
-                } else {
+						PaxosMessage pxmsg = (PaxosMessage)(msg);
+						
+						switch (pxmsg.getType()){
+							case PROPOSE:
+								accept(pxmsg);
+							
+							case DENY:
+								denyRecieved(pxmsg);
+							default:
+								System.out.println("Not relevant message");
+								break;
+
+						//If does nto recieve majority of promises, put the message back at the front of the outgoing queue to try again and break
+
+					}
+					//Send accept? to all acceptors and wwait for majority of acceptAcknowledgements (Should have been done in last call of accept())
+					
+					while (acceptacks < majority && refuses < majority) {
+						//If a majority of AcceptAcks have come in: Send Confirm and break from the loop
+						try {
+							msg = gcl.readGCMessage();
+						} catch (InterruptedException e){ // Catch an InterruptedException per the documentation in the doc
+							e.printStackTrace();
+						}
+
+						pxmsg = (PaxosMessage)(msg);
+						
+						switch (pxmsg.getType()){
+							case REFUSE:
+								refuseReceived(pxmsg);
+							
+							case ACCEPTACK:
+								acceptAckRecieved(pxmsg);
+
+							default:
+								System.out.println("Not relevant message");
+								break;
+
+						//If not, put back to the front of the queue to try again and break from the loop
+
+					}
+				}
+				}
+                }
+			 	 else {
                     // No message available, pause for a short time
                     try {
                         Thread.sleep(500); // Avoid busy-waiting, adjust time as needed
@@ -237,6 +291,11 @@ public class Paxos
 		 */
 
 		void propose(){
+			//Choose a ballotID
+			this.BID = generateBID();
+			//Send propose(BallotID) to all acceptors)
+			PaxosMessage proposalMsg = new PaxosMessage(MsgType.PROPOSE, this.BID, this.BID2, this.val, String.valueOf(this.proposerID));
+			gcl.broadcastMsg(proposalMsg);
 
 		}
 
@@ -298,7 +357,7 @@ public class Paxos
 	}
 		
 
-		void acceptAckRecieved(){
+		void acceptAckRecieved(PaxosMessage pxmsg){
 			// If we already exceeded majority, we can ignore the rest of the acceptacks to avoid sending out multiple CONFIRM messages
 			if (acceptacks > majority) break;
 
@@ -359,12 +418,8 @@ public class Paxos
 				// Extract the PaxosMessage from the message received, and respond. 
 				PaxosMessage pxmsg = (PaxosMessage)(msg.val);
 				
-
-				// Refer to the Paxos slides p.28 - p.31, especially regarding the usage of the 2 ballotIDs for failures
-
 				switch (pxmsg.getType()){
 					case PROPOSE:
-
 						promise(pxmsg);
 
 					case ACCEPT:
@@ -442,5 +497,4 @@ public class Paxos
 		}
 
 	}
-}
 }

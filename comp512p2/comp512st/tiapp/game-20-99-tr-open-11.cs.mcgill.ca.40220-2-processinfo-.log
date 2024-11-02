@@ -1,0 +1,46 @@
+Nov 02, 2024 10:14:01.764715787 AM comp512st.tiapp.TreasureIslandApp main INFO: Started with arguments : [tr-open-11.cs.mcgill.ca:40220, tr-open-10.cs.mcgill.ca:40120,tr-open-11.cs.mcgill.ca:40220, game-20-99, 2, 2]
+Nov 02, 2024 10:14:01.773893415 AM comp512.utils.FailCheck <init> INFO: Initializing failure check emulation setup....
+Nov 02, 2024 10:14:01.804707206 AM comp512.gcl.GCL <init> INFO: Host tr-open-11.cs.mcgill.ca/10.69.38.161:40220
+Nov 02, 2024 10:14:01.805371635 AM comp512.gcl.GCL <init> INFO: Initializing outbox despatcher threads.
+Nov 02, 2024 10:14:01.808719649 AM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: tr-open-10.cs.mcgill.ca:40120: Starting outbox despatch thread for process.
+Nov 02, 2024 10:14:01.808745187 AM comp512.gcl.GCL$GCLOutBoxDespatcher run INFO: tr-open-11.cs.mcgill.ca:40220: Starting outbox despatch thread for process.
+Nov 02, 2024 10:14:01.835007126 AM comp512.ti.TreasureIsland <init> INFO: Treasure Island initialized.
+Nov 02, 2024 10:14:06.759252244 AM comp512.gcl.GCL$InboxListener run INFO: Network connection request from  /10.69.38.160
+Nov 02, 2024 10:14:06.771880569 AM comp512.gcl.GCL$InboxListener run INFO: tr-open-10.cs.mcgill.ca:40120: Input stream set up for this process to receive incoming messages. Inet: /10.69.38.160
+Nov 02, 2024 10:14:06.773558315 AM comp512.gcl.GCL$GCLInbox run INFO: tr-open-10.cs.mcgill.ca:40120: Starting an inBox thread to receive messages from this process.
+Nov 02, 2024 10:14:06.822836176 AM comp512.gcl.GCL$GCLInbox run FINE: tr-open-10.cs.mcgill.ca:40120: Received a message from. message: [senderProcess:tr-open-10.cs.mcgill.ca:40120:val:[Ljava.lang.Object;@9882e31]
+Nov 02, 2024 10:14:06.823515304 AM comp512.gcl.GCL readGCMessage INFO: Delivering message : [senderProcess:tr-open-10.cs.mcgill.ca:40120:val:[Ljava.lang.Object;@9882e31]
+Nov 02, 2024 10:14:06.825808132 AM comp512st.tiapp.TreasureIslandApp run FINE: Received :[1, R]
+Nov 02, 2024 10:14:06.826428542 AM comp512.ti.TreasureIsland move INFO: Move request: player number 1 direction R
+Nov 02, 2024 10:14:08.690368696 AM comp512.gcl.GCL$GCLInbox run FINE: tr-open-10.cs.mcgill.ca:40120: Received a message from. message: [senderProcess:tr-open-10.cs.mcgill.ca:40120:val:[Ljava.lang.Object;@1c7ebfdb]
+Nov 02, 2024 10:14:08.690932655 AM comp512.gcl.GCL readGCMessage INFO: Delivering message : [senderProcess:tr-open-10.cs.mcgill.ca:40120:val:[Ljava.lang.Object;@1c7ebfdb]
+Nov 02, 2024 10:14:08.693532878 AM comp512st.tiapp.TreasureIslandApp run FINE: Received :[1, R]
+Nov 02, 2024 10:14:08.694287665 AM comp512.ti.TreasureIsland move INFO: Move request: player number 1 direction R
+Nov 02, 2024 10:14:10.130847713 AM comp512.gcl.GCL$GCLInbox run FINE: tr-open-10.cs.mcgill.ca:40120: Received a message from. message: [senderProcess:tr-open-10.cs.mcgill.ca:40120:val:[Ljava.lang.Object;@39dd91be]
+Nov 02, 2024 10:14:10.131484260 AM comp512.gcl.GCL readGCMessage INFO: Delivering message : [senderProcess:tr-open-10.cs.mcgill.ca:40120:val:[Ljava.lang.Object;@39dd91be]
+Nov 02, 2024 10:14:10.134086938 AM comp512st.tiapp.TreasureIslandApp run FINE: Received :[1, R]
+Nov 02, 2024 10:14:10.135090425 AM comp512.ti.TreasureIsland move INFO: Move request: player number 1 direction R
+Nov 02, 2024 10:14:11.213465690 AM comp512.gcl.GCL$GCLInbox run FINE: tr-open-10.cs.mcgill.ca:40120: Received a message from. message: [senderProcess:tr-open-10.cs.mcgill.ca:40120:val:[Ljava.lang.Object;@53148fbb]
+Nov 02, 2024 10:14:11.214703059 AM comp512.gcl.GCL readGCMessage INFO: Delivering message : [senderProcess:tr-open-10.cs.mcgill.ca:40120:val:[Ljava.lang.Object;@53148fbb]
+Nov 02, 2024 10:14:11.217271731 AM comp512st.tiapp.TreasureIslandApp run FINE: Received :[1, R]
+Nov 02, 2024 10:14:11.217846307 AM comp512.ti.TreasureIsland move INFO: Move request: player number 1 direction R
+Nov 02, 2024 10:14:11.218892784 AM comp512.ti.TreasureIsland move INFO: Player A got treasure points 3
+Nov 02, 2024 10:14:12.185441180 AM comp512.gcl.GCL$GCLInbox run FINE: tr-open-10.cs.mcgill.ca:40120: Received a message from. message: [senderProcess:tr-open-10.cs.mcgill.ca:40120:val:[Ljava.lang.Object;@1b25ca4e]
+Nov 02, 2024 10:14:12.186662866 AM comp512.gcl.GCL readGCMessage INFO: Delivering message : [senderProcess:tr-open-10.cs.mcgill.ca:40120:val:[Ljava.lang.Object;@1b25ca4e]
+Nov 02, 2024 10:14:12.189363065 AM comp512st.tiapp.TreasureIslandApp run FINE: Received :[1, R]
+Nov 02, 2024 10:14:12.190375118 AM comp512.ti.TreasureIsland move INFO: Move request: player number 1 direction R
+Nov 02, 2024 10:14:14.845270094 AM comp512.gcl.GCL$GCLInbox run FINE: tr-open-10.cs.mcgill.ca:40120: Received a message from. message: [senderProcess:tr-open-10.cs.mcgill.ca:40120:val:[Ljava.lang.Object;@72cc2e96]
+Nov 02, 2024 10:14:14.846761357 AM comp512.gcl.GCL readGCMessage INFO: Delivering message : [senderProcess:tr-open-10.cs.mcgill.ca:40120:val:[Ljava.lang.Object;@72cc2e96]
+Nov 02, 2024 10:14:14.849789091 AM comp512st.tiapp.TreasureIslandApp run FINE: Received :[1, R]
+Nov 02, 2024 10:14:14.850990858 AM comp512.ti.TreasureIsland move INFO: Move request: player number 1 direction R
+Nov 02, 2024 10:14:21.585625611 AM comp512.gcl.GCL$GCLInbox run SEVERE: tr-open-10.cs.mcgill.ca:40120: Socket was closed at the other end. Encountered EOFException while reading from. java.io.EOFException
+java.io.EOFException
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:3232)
+	at java.base/java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1713)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:540)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:498)
+	at comp512.gcl.GCL$GCLInbox.run(GCL.java:279)
+
+Nov 02, 2024 10:14:21.590614767 AM comp512.gcl.GCL$GCLInbox run INFO: tr-open-10.cs.mcgill.ca:40120: Closed incoming connection from this process. The inBox thread is shutdown.
+Nov 02, 2024 10:14:23.313907596 AM comp512st.tiapp.TreasureIslandApp main FINE: cmd is : Ç
+Nov 02, 2024 10:14:23.317314430 AM comp512st.tiapp.TreasureIslandApp main WARNING: Command Ç is not a valid command for this app.
