@@ -6,8 +6,8 @@ import java.io.*;
 import java.util.logging.*;
 import java.net.UnknownHostException;
 import java.nio.channels.Pipe.SourceChannel;
-//Phase 1: Queueing
 import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.TimeUnit;
 
 public class Paxos
 {
@@ -22,6 +22,10 @@ public class Paxos
 	Proposer proposer;
 	Acceptor acceptor;
 	private enum MsgType {PROPOSE,PROMISE,REFUSE,ACCEPT,ACCEPTACK,DENY,CONFIRM}
+
+	//Timing
+	long startTime; // Start time in milliseconds
+    long maxDuration = TimeUnit.SECONDS.toMillis(100);
 
 	int numProcesses; int majority;
 
@@ -86,7 +90,9 @@ public class Paxos
 				Object val = outgoing.poll();
 				if (val != null){
 					propose();
-					while (promises < majority && refusals < majority){
+					failCheck.checkFailure(FailCheck.FailureType.AFTERSENDPROPOSE);
+					startTime = System.currentTimeMillis();
+					while (promises < majority && refusals < majority && (System.currentTimeMillis() - startTime < maxDuration)){
 						PaxosMessage response = (PaxosMessage) proposerQueue.poll();
 						if (response != null){
 							if (response.ballotID < this.ballotID){continue;}
@@ -113,15 +119,15 @@ public class Paxos
 
 					if (promises >= majority){
 						//System.out.println("Success! We are now the leader of " + Integer.toString(promises));
+						failCheck.checkFailure(FailCheck.FailureType.AFTERBECOMINGLEADER);
 						reset();
 						
-
-
 						//---------------------Begin Accept Phase---------------------------------------------------
 						accept(this.ballotID, val);
 						numAcceptAcks = 0; numDenies = 0;
-
-						while (numAcceptAcks < majority && numDenies < majority){
+						
+						startTime = System.currentTimeMillis();
+						while (numAcceptAcks < majority && numDenies < majority && (System.currentTimeMillis() - startTime < maxDuration)){
 							PaxosMessage response = (PaxosMessage) proposerQueue.poll();
 							if (response != null){
 								if (response.ballotID < this.ballotID){continue;}
@@ -142,6 +148,7 @@ public class Paxos
 						//System.out.println("Exited with " + numAcceptAcks + " acceptAcks and " + numDenies + " denies");
 						if (numAcceptAcks >= majority){
 							//System.out.println("Value Accepted by Majority. BID: " + ballotID);
+							failCheck.checkFailure(FailCheck.FailureType.AFTERVALUEACCEPT);
 							acceptedVal = val;
 							confirm(this.ballotID);
 							reset();
@@ -211,7 +218,9 @@ public class Paxos
 				switch(pxmsg.getType()){
 					case PROPOSE:
 						//System.out.println("Promising/Refusing " + pxmsg.ballotID + " to " + msg.senderProcess + " at " + this.processID);
+						failCheck.checkFailure(FailCheck.FailureType.RECEIVEPROPOSE);
 						promise(pxmsg.ballotID, msg.senderProcess);
+						failCheck.checkFailure(FailCheck.FailureType.AFTERSENDVOTE);
 						break;
 					case PROMISE:
 						proposerQueue.offer(pxmsg);
