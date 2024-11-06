@@ -8,6 +8,10 @@ import java.net.UnknownHostException;
 import java.nio.channels.Pipe.SourceChannel;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+
+
 
 public class Paxos
 {
@@ -19,13 +23,17 @@ public class Paxos
 	LinkedBlockingDeque<Object> outgoing;
 	LinkedBlockingDeque<Object> incoming;
 	LinkedBlockingDeque<Object> proposerQueue;
+
 	Proposer proposer;
 	Acceptor acceptor;
 	private enum MsgType {PROPOSE,PROMISE,REFUSE,ACCEPT,ACCEPTACK,DENY,CONFIRM}
 
 	//Timing
 	long startTime; // Start time in milliseconds
-    long maxDuration = TimeUnit.SECONDS.toMillis(100);
+	long pstartTime; // Start time in milliseconds
+	long testingStartTime;
+	long rateTime; long a; long b;
+    long maxDuration = TimeUnit.MILLISECONDS.toMillis(100);
 
 	int numProcesses; int majority;
 
@@ -34,7 +42,7 @@ public class Paxos
 		// Rember to call the failCheck.checkFailure(..) with appropriate arguments throughout your Paxos code to force fail points if necessary.
 		this.failCheck = failCheck;
 		this.gcl = new GCL(myProcess, allGroupProcesses, null, logger);
-
+		this.testingStartTime = System.currentTimeMillis();
 		numProcesses = allGroupProcesses.length;
 		majority = (numProcesses / 2)+1;
 		outgoing = new LinkedBlockingDeque<>();
@@ -64,6 +72,30 @@ public class Paxos
 
 	public void shutdownPaxos()
 	{
+		
+		Thread monitorThread = new Thread(() -> {
+			try {
+				while (true) {
+					if (incoming.isEmpty() && outgoing.isEmpty() && proposerQueue.isEmpty()) {
+						System.out.println("Queues are empty");
+						break; // Exit the loop and end the thread
+					} 
+					Thread.sleep(100); 
+				}
+			} catch (InterruptedException e) {
+				System.out.println("Monitor thread interrupted.");
+			}
+		});
+
+		monitorThread.start();
+		try {
+			Thread.sleep(500);
+		} catch (Exception e){
+
+		}
+		System.out.println(System.currentTimeMillis() - testingStartTime);
+		System.out.println("This process's RateTime: " + rateTime);
+
 		gcl.shutdownGCL();
 	}
 
@@ -90,9 +122,10 @@ public class Paxos
 				Object val = outgoing.poll();
 				if (val != null){
 					propose();
+					a = System.currentTimeMillis();
 					failCheck.checkFailure(FailCheck.FailureType.AFTERSENDPROPOSE);
-					startTime = System.currentTimeMillis();
-					while (promises < majority && refusals < majority && (System.currentTimeMillis() - startTime < maxDuration)){
+					pstartTime = System.currentTimeMillis();
+					while (promises < majority && refusals < majority && (System.currentTimeMillis() - pstartTime < maxDuration)){
 						PaxosMessage response = (PaxosMessage) proposerQueue.poll();
 						if (response != null){
 							if (response.ballotID < this.ballotID){continue;}
@@ -150,7 +183,9 @@ public class Paxos
 							//System.out.println("Value Accepted by Majority. BID: " + ballotID);
 							failCheck.checkFailure(FailCheck.FailureType.AFTERVALUEACCEPT);
 							acceptedVal = val;
-							confirm(this.ballotID);
+							confirm(this.ballotID, this.acceptedVal);
+							b = System.currentTimeMillis();
+							rateTime += (b - a);
 							reset();
 
 						} else {
@@ -166,7 +201,7 @@ public class Paxos
 						outgoing.offerFirst(val);
 					}
 
-				} else { try {Thread.sleep(500);} catch (InterruptedException e) { Thread.currentThread().interrupt(); break;}}
+				} else { continue;}
 			}
 		}
 
@@ -193,8 +228,8 @@ public class Paxos
 			PaxosMessage acceptq = new PaxosMessage(MsgType.ACCEPT, val, ballotID, -1, this.processID);
 			gcl.broadcastMsg(acceptq);
 		}
-		void confirm(int BID){
-			PaxosMessage confirmation = new PaxosMessage(MsgType.CONFIRM, acceptedVal, BID, BID, processID);
+		void confirm(int BID, Object val){
+			PaxosMessage confirmation = new PaxosMessage(MsgType.CONFIRM, val, BID, BID, processID);
 			gcl.broadcastMsg(confirmation);
 		}
 
